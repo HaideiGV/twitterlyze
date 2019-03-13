@@ -5,12 +5,23 @@ metadata = sa.MetaData()
 
 CONNECTION = 'dbname=postgres user=postgres password=admin host=127.0.0.1'
 
+
 async def get_pool():
-    return await create_engine(user='postgres', database='postgres', host='127.0.0.1', password='admin')
+    return await create_engine(
+        user='postgres',
+        database='postgres',
+        host='127.0.0.1',
+        password='admin'
+    )
 
 
 async def init_pg(app):
-    app['db'] = await create_engine(user='postgres', database='postgres', host='127.0.0.1', password='admin')
+    app['db'] = await create_engine(
+        user='postgres',
+        database='postgres',
+        host='127.0.0.1',
+        password='admin'
+    )
 
 
 posts_analytic = sa.Table(
@@ -33,4 +44,3 @@ search_settings = sa.Table(
     sa.Column('search_phrase', sa.String),
     sa.Column('search_interval', sa.Integer)
 )
-

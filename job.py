@@ -30,9 +30,13 @@ def analyse_data(data: List[Dict]):
         for bi_gram in bi_grams:
             phrases[bi_gram] += 1
 
+    top_phrases = [
+        " ".join([phrase[0], phrase[1]])
+        for phrase, _ in phrases.most_common(3)
+    ]
     return {
         'top_hashtags': [tag for tag, _ in hashtags.most_common(3)],
-        'top_phrases': [" ".join([phrase[0], phrase[1]]) for phrase, _ in phrases.most_common(3)],
+        'top_phrases': top_phrases,
         'top_publisher': publishers.most_common(1)[0][0],
         'tweet_count': tweet_count
     }

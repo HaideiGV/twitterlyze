@@ -27,7 +27,9 @@ async def add_posts_analytic(db, data: Dict):
             )
             log.info("Writing analytic finished.")
         except Exception as e:
-            log.error("Adding to database was failed due to: {}".format(str(e)))
+            log.error(
+                "Adding to database was failed due to: {}".format(str(e))
+            )
 
 
 async def get_posts_analytic(db):
@@ -44,10 +46,11 @@ async def get_posts_analytic_by_phrase(db, phrase):
     result = []
     async with db.acquire() as conn:
         data = await conn.execute(
-            posts_analytic.select().where(posts_analytic.c.search_phrase == phrase)
+            posts_analytic
+            .select()
+            .where(posts_analytic.c.search_phrase == phrase)
         )
         async for row in data:
             result.append(row)
 
     return result
-

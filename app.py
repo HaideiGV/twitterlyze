@@ -5,7 +5,9 @@ from aiohttp.abc import AbstractAccessLogger
 from handlers.health import health_handler
 from handlers.index import index_handler
 from handlers.search_settings import get_search_settings, post_search_settings
-from handlers.search_results import get_search_results, get_search_results_by_phrase
+from handlers.search_results import (
+    get_search_results, get_search_results_by_phrase,
+)
 from db.base import init_pg
 from job import parse_activity
 
@@ -14,7 +16,8 @@ class AccessLogger(AbstractAccessLogger):
 
     def log(self, request, response, time):
         self.logger.info(
-            f'[{request.remote}][{request.method}] {request.path} done in {time}s: {response.status}'
+            f'[{request.remote}][{request.method}] '
+            f'{request.path} done in {time}s: {response.status}'
         )
 
 
@@ -39,6 +42,7 @@ async def create_tables(app):
                 search_interval integer
             );
         """)
+
 
 async def on_startup(app):
     await init_pg(app)

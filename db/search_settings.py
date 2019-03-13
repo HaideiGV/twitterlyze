@@ -30,7 +30,7 @@ async def add_or_update_setting(db, data: Dict):
         query = (
             search_settings
             .insert()
-            .values(search_phrase=phrase,search_interval=interval)
+            .values(search_phrase=phrase, search_interval=interval)
         )
 
     async with db.acquire() as conn:
